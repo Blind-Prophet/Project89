@@ -24,7 +24,7 @@ const pool = new Pool({
 
 //App Default Repsonse
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+    res.render('pages/home',{query:req.query});
 });
 
 //App DB Response
