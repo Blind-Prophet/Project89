@@ -5,6 +5,9 @@ const { Pool } = require('pg');
 //Create Express App
 const app = express();
 
+//View Enging: EJS
+app.set('view engine', 'ejs')
+
 //Setup Port
 let port = process.env.PORT;
 if (port == null || port == "") {
@@ -30,7 +33,7 @@ app.get('/db', async (req,res)=>{
         const client = await pool.connect();
         const result = await client.query('SELECT * FROM test_table');
         const results = { 'results': (result) ? result.rows : null};
-        res.send('pages/db', results );
+        res.render('pages/db', results );
         client.release();
       } catch (err) {
         console.error(err);
