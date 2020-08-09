@@ -8,6 +8,9 @@ const app = express();
 //View Enging: EJS
 app.set('view engine', 'ejs')
 
+//Static File Folders
+app.use('/static/', express.static('./static/'));
+
 //Setup Port
 let port = process.env.PORT;
 if (port == null || port == "") {
@@ -27,6 +30,12 @@ app.get('/', (req, res) => {
     res.render('pages/home',{query:req.query});
 });
 
+//DATABASE Response
+app.get(['/data','/data/*'], async (req,res)=>{
+  //console.log(req.params[0]);
+  res.render('pages/data');
+});
+
 //App DB Response
 app.get('/db', async (req,res)=>{
     try {
@@ -43,5 +52,5 @@ app.get('/db', async (req,res)=>{
 
 //Start App on given port
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Example app listening on ${port}`);
 });
