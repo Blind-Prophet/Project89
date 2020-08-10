@@ -1,5 +1,5 @@
 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3" style="margin: 10px 0px; max-width:350px;">
-    <div class="card text-white bg-dark">
+    <div class="card text-white bg-dark rare-card-<%= rarity %>">
     <div class="card-header">
         Featured
       </div>
@@ -14,6 +14,7 @@
     </ul>
     <div class="card-footer">
         <a href="#" class="card-link">Permalink</a>
+        <p class="card-text float-right rare-text-<%= rarity %>" style="font-weight: bold;"><%- include('rarity',rarity); -%></p>
       </div>
   </div>
   </div>

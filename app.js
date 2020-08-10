@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 //DATABASE Response
 app.get(['/data','/data/*'], async (req,res)=>{
   //console.log(req.params[0]);
-  res.render('pages/data');
+  res.render('pages/data',{query:req.query});
 });
 
 //App DB Response

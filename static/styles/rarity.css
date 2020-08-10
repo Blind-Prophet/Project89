@@ -1,0 +1,50 @@
+:root {
+    --rarity-1: #eeeeee;
+    --rarity-2: #00ee80;
+    --rarity-3: #0080ee;
+    --rarity-4: #8000ee;
+    --rarity-5: #ffee00;
+    --rarity-6: #ee00ee;
+}
+
+
+
+
+
+
+.rare-text-1{
+    color: var(--rarity-1);
+}
+.rare-card-1{
+    border: 2px solid var(--rarity-1);
+}
+.rare-text-2{
+    color: var(--rarity-2);
+}
+.rare-card-2{
+    border: 2px solid var(--rarity-2);
+}
+.rare-text-3{
+    color: var(--rarity-3);
+}
+.rare-card-3{
+    border: 2px solid var(--rarity-3);
+}
+.rare-text-4{
+    color: var(--rarity-4);
+}
+.rare-card-4{
+    border: 3px solid var(--rarity-4);
+}
+.rare-text-5{
+    color: var(--rarity-5);
+}
+.rare-card-5{
+    border: 2px solid var(--rarity-5);
+}
+.rare-text-6{
+    color: var(--rarity-6);
+}
+.rare-card-6{
+    border: 2px solid var(--rarity-6);
+}
