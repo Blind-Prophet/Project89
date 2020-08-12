@@ -54,8 +54,8 @@ app.get('/admin', async (req,res)=>{
     try {
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM sessions');
-      const res = { 'results': (result) ? result.rows : null};
-      for(var row in res.results){
+      const data = { 'results': (result) ? result.rows : null};
+      for(var row in data.results){
         if(row.name == cookie){
           res.render('pages/admin');
         }
