@@ -1,15 +1,24 @@
 //Requires
 const express = require('express');
 const { Pool } = require('pg');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const upload = multer();
 
 //Create Express App
 const app = express();
 
+//App usage
+app.use('/static/', express.static('./static/'));
+app.use(cookieParser());
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(upload.array()); 
+app.use(express.static('public'));
+
 //View Enging: EJS
 app.set('view engine', 'ejs')
-
-//Static File Folders
-app.use('/static/', express.static('./static/'));
 
 //Setup Port
 let port = process.env.PORT;
@@ -36,6 +45,31 @@ app.get(['/data','/data/*'], async (req,res)=>{
   res.render('pages/data',{query:req.query});
 });
 
+//ADMIN ONLY TEST
+app.get('/admin', async (req,res)=>{
+  let cookie = req.cookies["session"];
+  if(cookie == null){
+    res.render('pages/auth',{page:'admin'});
+  }else{
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM sessions');
+      const results = { 'results': (result) ? result.rows : null};
+      results.forEach(e => {
+        if(e.name == cookie){
+          res.render('pages/admin');
+        }
+      });
+      res.render('pages/auth',{page:'admin'});
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  }
+  
+});
+
 //App DB Response
 app.get('/db', async (req,res)=>{
     try {
@@ -48,6 +82,22 @@ app.get('/db', async (req,res)=>{
         console.error(err);
         res.send("Error " + err);
       }
+});
+
+//App FORM POST
+app.post('/auth', function(req, res){
+  if(req.body.password == process.env.AUTH_PW){
+    res.cookie('session','test_session', { maxAge: 900000, httpOnly: true });
+    let page = 'pages/'+req.body.page;
+    res.render(page,{query:req.query});
+  }else{
+    res.render('pages/home',{query:req.query});
+  }
+});
+
+app.post('/logout', function(req, res){
+  res.clearCookie("session");
+  res.render('pages/home',{query:req.query});
 });
 
 //Start App on given port

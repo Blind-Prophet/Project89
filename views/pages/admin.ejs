@@ -1,0 +1,10 @@
+<%- include('../components/header'); -%>
+<%- include('../components/navigation',{page:'admin'}); -%>
+
+THIS IS AN ADMIN ONLY PAGE
+
+<form action="/logout" method="POST">
+    <button type="submit" class="btn btn-primary">Log Out</button>
+</form>
+
+<%- include('../components/footer'); -%>
