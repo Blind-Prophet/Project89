@@ -57,8 +57,13 @@ app.get('/admin', async (req,res)=>{
       const result = await client.query('SELECT * FROM sessions');
       const data = { 'results': (result) ? result.rows : null};
       var success = false;
+      var now = new Date();
       for(var row in data.results){
-        if(data.results[row].name == cookie){
+        var date = new Date(data.results[row].date);
+        if(date<now){
+          let query = 'DELETE FROM sessions WHERE name = \''+data.results[row].name+ '\'';
+          await client.query(query);
+        }else if(data.results[row].name == cookie){
           success = true;
         }
       }
@@ -68,6 +73,7 @@ app.get('/admin', async (req,res)=>{
       }else{
         res.render('pages/auth',{page:'admin'});
       }
+      client.release();
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
@@ -101,6 +107,7 @@ app.post('/auth', async function(req, res){
     try {
       const client = await pool.connect();
       await client.query(query);
+      client.release();
     } catch (err) {
       console.error(err);
     }
@@ -122,6 +129,7 @@ app.post('/logout', async function(req, res){
     try {
       const client = await pool.connect();
       await client.query(query);
+      client.release();
     } catch (err) {
       console.error(err);
     }
