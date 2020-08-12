@@ -56,19 +56,17 @@ app.get('/admin', async (req,res)=>{
       const result = await client.query('SELECT * FROM sessions');
       const data = { 'results': (result) ? result.rows : null};
       var success = false;
-      res.send(data.results);
       for(var row in data.results){
-        
-        if(row.name == cookie){
+        if(data.results[row].name == cookie){
           success = true;
         }
       }
       
-      // if(success){
-      //   res.render('pages/admin');
-      // }else{
-      //   res.render('pages/auth',{page:'admin'});
-      // }
+      if(success){
+        res.render('pages/admin');
+      }else{
+        res.render('pages/auth',{page:'admin'});
+      }
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
