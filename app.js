@@ -62,7 +62,7 @@ app.get('/admin', async (req,res)=>{
           res.render('pages/admin');
         }
       }
-      res.send(debug);
+      res.send(results[0]);
       client.release();
     } catch (err) {
       console.error(err);
