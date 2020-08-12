@@ -59,8 +59,7 @@ app.get('/admin', async (req,res)=>{
       var success = false;
       var now = new Date();
       for(var row in data.results){
-        var date = new Date(data.results[row].date);
-        console.log(data.results[row].date);
+        var date = new Date(data.results[row].expiration);
         if(date<now){
           let query = 'DELETE FROM sessions WHERE name = \''+data.results[row].name+ '\'';
           await client.query(query);
