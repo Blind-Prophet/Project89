@@ -92,7 +92,7 @@ app.get('/db', async (req,res)=>{
 //App FORM POST
 app.post('/auth', function(req, res){
   if(req.body.password == process.env.AUTH_PW){
-    res.cookie('session','test_session', { maxAge: 900000, httpOnly: true });
+    res.cookie('session','test_session', { maxAge: 900000, httpOnly: true, sameSite: "strict", secure: true });
     let page = 'pages/'+req.body.page;
     res.render(page,{query:req.query});
   }else{
