@@ -56,8 +56,9 @@ app.get('/admin', async (req,res)=>{
       const result = await client.query('SELECT * FROM sessions');
       const data = { 'results': (result) ? result.rows : null};
       var success = false;
+      res.send(data.results);
       for(var row in data.results){
-        res.send(cookie + ' == ' + row.name);
+        
         if(row.name == cookie){
           success = true;
         }
