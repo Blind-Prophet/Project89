@@ -114,7 +114,19 @@ app.post('/auth', async function(req, res){
   }
 });
 
-app.post('/logout', function(req, res){
+app.post('/logout', async function(req, res){
+  let cookie = req.cookies["session"];
+  cookie = cookie.replace(/[^a-zA-Z0-9-_]+/ig,'');
+  if(cookie != null){
+    let query = 'DELETE FROM sessions WHERE name = \''+cookie+ '\'';
+    try {
+      const client = await pool.connect();
+      await client.query(query);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   res.clearCookie("session");
   res.render('pages/home',{query:req.query});
 });
