@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
+const { v4: uuidv4 } = require('uuid');
 
 //Create Express App
 const app = express();
@@ -90,9 +91,22 @@ app.get('/db', async (req,res)=>{
 });
 
 //App FORM POST
-app.post('/auth', function(req, res){
+app.post('/auth', async function(req, res){
   if(req.body.password == process.env.AUTH_PW){
-    res.cookie('session','test_session', { maxAge: 900000, httpOnly: true, sameSite: "strict", secure: true });
+    let session_name = ""+uuidv4();
+    var session_exp = new Date();
+    session_exp.setDate(session_exp.getDate() + 1);
+    let query = 'INSERT INTO sessions(name,expiration) VALUES ('+session_name+','+session_exp+');';
+
+    try {
+      const client = await pool.connect();
+      await client.query(query);
+    } catch (err) {
+      console.error(err);
+    }
+
+
+    res.cookie('session',session_name, { maxAge: 900000, httpOnly: true, sameSite: "strict", secure: true });
     let page = 'pages/'+req.body.page;
     res.render(page,{query:req.query});
   }else{
