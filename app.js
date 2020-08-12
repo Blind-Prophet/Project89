@@ -96,7 +96,7 @@ app.post('/auth', async function(req, res){
     let session_name = ""+uuidv4();
     var session_exp = new Date();
     session_exp.setDate(session_exp.getDate() + 1);
-    let query = 'INSERT INTO sessions(name,expiration) VALUES ('+session_name+','+session_exp+');';
+    let query = 'INSERT INTO sessions(name,expiration) VALUES ( \''+session_name+'\',\''+session_exp+'\');';
 
     try {
       const client = await pool.connect();
