@@ -57,8 +57,8 @@ app.get('/admin', async (req,res)=>{
       const results = { 'results': (result) ? result.rows : null};
       var debug =[];
       for(var row in results){
+        debug += [{a:row.name,b:cookie}];
         if(row.name == cookie){
-          debug += [{a:row.name,b:cookie}];
           res.render('pages/admin');
         }
       }
