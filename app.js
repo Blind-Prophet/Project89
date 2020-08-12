@@ -54,16 +54,13 @@ app.get('/admin', async (req,res)=>{
     try {
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM sessions');
-      const results = { 'results': (result) ? result.rows : null};
-      var debug ="";
-      for(var row in results){
-        debug +=  row.name+" == "+cookie + " ::: ";
+      const res = { 'results': (result) ? result.rows : null};
+      for(var row in res.results){
         if(row.name == cookie){
           res.render('pages/admin');
         }
       }
-      res.send(results);
-      client.release();
+      res.render('pages/auth',{page:'admin'});
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
