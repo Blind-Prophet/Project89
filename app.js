@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
-const { v4: uuidv4 } = require('uuid');
 const admin = require('./source/admin');
 
 //Create Express App

@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 module.exports = {
     load: async (req,res,pool,landing_page) =>{
         let cookie = req.cookies["session"];
@@ -53,7 +55,7 @@ module.exports = {
             let page = 'pages/'+req.body.page;
             res.render(page,{query:req.query});
           }else{
-            res.render('pages/home',{query:req.query});
+            res.render('pages/auth',{query:req.query});
           }
     },
 
