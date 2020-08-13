@@ -1,5 +1,5 @@
 module.exports = {
-    load: (req,res,pool,landing_page) =>{
+    load: async (req,res,pool,landing_page) =>{
         let cookie = req.cookies["session"];
         if(cookie == null){
             res.render('pages/auth',{page:landing_page});
@@ -33,7 +33,7 @@ module.exports = {
         }
     },
 
-    login: (req,res,pool,authentication) => {
+    login: async (req,res,pool,authentication) => {
         if(req.body.password == authentication){
             let session_name = ""+uuidv4();
             var session_exp = new Date();
@@ -57,7 +57,7 @@ module.exports = {
           }
     },
 
-    logout: (req,res,pool) => {
+    logout: async (req,res,pool) => {
         let cookie = req.cookies["session"];
         cookie = cookie.replace(/[^a-zA-Z0-9-_]+/ig,'');
         if(cookie != null){
