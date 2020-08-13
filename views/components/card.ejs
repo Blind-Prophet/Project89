@@ -1,22 +1,20 @@
 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3" style="margin: 10px 0px; max-width:350px;">
-    <div class="card text-white bg-dark rare-card-<%= rarity %>">
-    <div class="card-header">
-        Inverted 8-Ball
-      </div>
-      <div style="padding-bottom:100%; overflow:hidden; position:relative">
-    <img style="position:absolute;" src="https://scontent-bos3-1.cdninstagram.com/v/t51.2885-15/e35/p240x240/117352951_3322807757776321_9159548093691741348_n.jpg?_nc_ht=scontent-bos3-1.cdninstagram.com&_nc_cat=101&_nc_ohc=kx8b4DQURw0AX-p96uG&oh=d6dadda06cecc5b02aaa0bdd890100de&oe=5F5C4359&ig_cache_key=MjM3MjQ3NDU1NTU3MjA2MzI4Nw%3D%3D.2" class="card-img-top" alt="...">
-      </div>
+  <div class="card text-white bg-dark rare-card-<%= rarity %>">
+    <h5 class="card-header">Inverted 8-Ball</h5>
+    <div style="padding-bottom:100%; overflow:hidden; position:relative">
+      <img style="position:absolute;" src="https://scontent-bos3-1.cdninstagram.com/v/t51.2885-15/e35/p240x240/117352951_3322807757776321_9159548093691741348_n.jpg?_nc_ht=scontent-bos3-1.cdninstagram.com&_nc_cat=101&_nc_ohc=kx8b4DQURw0AX-p96uG&oh=d6dadda06cecc5b02aaa0bdd890100de&oe=5F5C4359&ig_cache_key=MjM3MjQ3NDU1NTU3MjA2MzI4Nw%3D%3D.2" class="card-img-top" alt="...">
+    </div>
     <div class="card-body">
       <p class="card-text">Some quick example text to describe the item or give further context to it.</p>
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item text-white bg-dark">Attributes?</li>
       <li class="list-group-item text-white bg-dark">MORE ATTRIBUTES</li>
-      <!--<li class="list-group-item text-white bg-dark">Vestibulum at eros</li>-->
+      <li class="list-group-item text-white bg-dark">Attr # 3</li>
     </ul>
     <div class="card-footer">
-        <a href="#" class="card-link">Permalink</a>
-        <p class="card-text float-right rare-text-<%= rarity %>" style="font-weight: bold;"><%- include('rarity',rarity); -%></p>
-      </div>
+      <a href="" class="card-link"><%- include('../icons/link'); -%></a>
+      <p class="card-text float-right rare-text-<%= rarity %>" style="font-weight: bold;"><%- include('rarity',rarity); -%> Artifact</p>
+    </div>
   </div>
-  </div>
+</div>
