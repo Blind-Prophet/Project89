@@ -1,0 +1,24 @@
+<%- include('../components/header'); -%>
+<%- include('../components/navigation',{page:'auth'}); -%>
+
+<div class="container-fluid justify-content-center">
+    <div style="margin: 10px auto; max-width:450px;display: block;">
+        <div class="card text-white bg-dark" style="margin:auto;">
+            <div class="card-header">
+                <h4 class="">Authentication</h4>
+            </div>
+            <div class="card-body">
+                <form action="/auth" method="POST">
+                    <div class="form-group">
+                        <label for="input-password" class="col-form-label-lg">Password</label>
+                        <input type="password" class="form-control" id="input-password" name="password">
+                    </div>
+                    <input type="hidden" id="page" name="page" value="<%= page %>">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../components/footer'); -%>
