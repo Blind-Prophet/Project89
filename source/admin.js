@@ -55,7 +55,7 @@ module.exports = {
             let page = 'pages/'+req.body.page;
             res.render(page,{query:req.query});
           }else{
-            res.render('pages/auth',{query:req.query});
+            res.render('pages/auth',{query:req.query,page:req.body.page});
           }
     },
 
