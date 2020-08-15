@@ -11,11 +11,13 @@
       <p class="card-text"><%= card.description %></p>
     </div>
     <% } %>
+    <% if (card.attributes) { %>
     <ul class="list-group list-group-flush">
       <% for(var i=0; i < card.attributes.length; i++) { %>
         <li class="list-group-item text-white bg-dark"><%= card.attributes[i] %></li>
       <% } %>
     </ul>
+    <% } %>
     <div class="card-footer">
       <a href="<%= crypto.createHmac("sha256", "test").update(card.id).digest("hex");%>" class="card-link"><%- include('../icons/link'); -%></a>
       <p class="card-text float-right rare-text-<%= card.rarity %>" style="font-weight: bold;"><%- include('rarity',{rarity:card.rarity}); -%> <%= card.type %></p>
