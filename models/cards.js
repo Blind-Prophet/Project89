@@ -5,8 +5,7 @@ module.exports = {
             const client = await pool.connect();
             const result = await client.query('SELECT * FROM cards');
             const data = { 'results': (result) ? result.rows : null};
-            res.send(data);
-            //res.render('pages/data',{crypto:crypto,data:data.results});
+            res.render('pages/data',{crypto:crypto,data:data.results});
 
 
             // for(var row in data.results){
