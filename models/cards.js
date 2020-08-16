@@ -7,7 +7,7 @@ module.exports = {
             if(req.query.id){
                 let id = req.query.id;
                 id = id.replace(/[^a-zA-Z0-9-_]+/ig,'');
-                query += 'WHERE uuid = \''+id+'\'';
+                query += ' WHERE uuid = \''+id+'\'';
             }
 
             const result = await client.query(query);
