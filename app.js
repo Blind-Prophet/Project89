@@ -5,7 +5,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
-const admin = require('./source/admin');
+const admin = require('./models/admin');
+const cards = require('./models/cards');
 
 //Create Express App
 const app = express();
@@ -41,9 +42,9 @@ app.get('/', (req, res) => {
 });
 
 //DATABASE Response
-app.get(['/data','/data/*'], async (req,res)=>{
+app.get(['/db','/db/*'], async (req,res)=>{
+  cards.get(req,res,pool);
   //console.log(req.params[0]);
-  res.render('pages/data',{query:req.query});
 });
 
 //ADMIN ONLY TEST

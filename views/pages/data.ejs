@@ -2,9 +2,9 @@
 <%- include('../components/navigation',{page:'data'}); -%>
 <div class="container-fluid">
 <div class="row justify-content-center">
-
-    <%- include('../components/card',{rarity:query.r}); -%>
-
+    <% for( let index = 0; index < data.length; index++ ) { %>
+        <%- include ('../components/card',{card:data[index]}) -%> 
+    <% } %>
 </div>
 </div>
 <%- include('../components/footer'); -%>
