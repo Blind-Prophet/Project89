@@ -14,11 +14,11 @@
             Database
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/db/">All</a>
-            <!-- <a class="dropdown-item disabled" href="">Items</a>
+            <a class="dropdown-item <% if (page=='data') { %>active<%}%>" href="/db/">All</a>
+            <a class="dropdown-item disabled" href="">Items</a>
             <a class="dropdown-item disabled" href="">Monsters</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item disabled" href="">Create</a> -->
+            <a class="dropdown-item <% if (page=='create') { %>active<%}%>" href="/create/">Create</a>
           </div>
         </li>
         <li class="nav-item  <% if (page=='explore') { %>active<%}%>">

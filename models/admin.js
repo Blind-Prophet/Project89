@@ -75,5 +75,34 @@ module.exports = {
 
         res.clearCookie("session");
         res.render('pages/home',{query:req.query});
+    },
+
+    enabled: async(req,res,pool,landing_page) => { 
+        let cookie = req.cookies["session"];
+        try {
+            const client = await pool.connect();
+            const result = await client.query('SELECT * FROM sessions');
+            const data = { 'results': (result) ? result.rows : null};
+            var success = false;
+            var now = new Date();
+            for(var row in data.results){
+                var date = new Date(data.results[row].expiration);
+                if(date<now){
+                    let query = 'DELETE FROM sessions WHERE name = \''+data.results[row].name+ '\'';
+                    await client.query(query);
+                }else if(data.results[row].name == cookie){
+                    success = true;
+                }
+            }
+            if(success){
+                res.render('pages/'+landing_page,{admin:true});
+            }else{
+                res.render('pages/'+landing_page,{admin:false});
+            }
+                client.release();
+        } catch (err) {
+            console.error(err);
+            res.render('pages/'+landing_page,{admin:false});
+        }
     }
   };

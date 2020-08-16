@@ -47,23 +47,19 @@ app.get(['/db','/db/*'], async (req,res)=>{
   //console.log(req.params[0]);
 });
 
+app.get('/create',async (req,res)=>{
+  admin.enabled(req,res,pool,'create');
+});
+app.get('/create/preview', async (req,res)=>{
+  res.render('pages/preview',{query:req.query});
+})
+app.post('/crate/submit', async function(req, res){
+  
+});
+
 //ADMIN ONLY TEST
 app.get('/admin', async (req,res)=>{
   admin.load(req,res,pool,'admin');
-});
-
-//App DB Response
-app.get('/db', async (req,res)=>{
-    try {
-        const client = await pool.connect();
-        const result = await client.query('SELECT * FROM test_table');
-        const results = { 'results': (result) ? result.rows : null};
-        res.render('pages/db', results );
-        client.release();
-      } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-      }
 });
 
 //App FORM POST

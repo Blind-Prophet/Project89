@@ -1,0 +1,76 @@
+<%- include('../components/header'); -%>
+<%- include('../components/navigation',{page:'create'}); -%>
+<div class="container-fluid row  justify-content-center"style="margin-top: 10px;">
+  <div class="container bg-dark text-white" style="border-radius: 15px;">
+    <%- include('../components/title',{title:'Create-o-matic'}); -%>
+    <form action="/create/submit" method="POST">
+        <div class="form-group row">
+            <label for="cardname" class="col-sm-3 col-form-label col-form-label-lg">Name*</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control form-control-lg" id="cardname" placeholder="Name" maxlength="32" required>
+            </div>
+        </div>
+        <div class="form-group row">
+          <label for="cardimg" class="col-sm-3 col-form-label col-form-label-lg">Image URL</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control form-control-lg" id="cardimg" placeholder="www.example.com/image.png">
+          </div>
+      </div>
+        <div class="form-group row">
+            <label for="carddesc" class="col-sm-3 col-form-label col-form-label-lg">Description</label>
+            <div class="col-sm-9">
+              <textarea class="form-control form-control-lg" id="carddesc" placeholder="Use this to provide context or a short description." maxlength="255"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+          <label for="cardattr" class="col-sm-3 col-form-label col-form-label-lg">Attributes</label>
+          <div class="col-sm-9">
+            <textarea cols="32" class="form-control form-control-lg" id="cardattr" placeholder="One attribute per line (32 character each)"></textarea>
+          </div>
+      </div>
+        <div class="form-group row">
+            <label for="cardrarity" class="col-sm-3 col-form-label col-form-label-lg">Rarity</label>
+            <div class="col-sm-9">
+                <select class="custom-select custom-select-lg" id="cardrarity">
+                    <option selected value="1"><%- include('../components/rarity',{rarity:1}); -%></option>
+                    <option value="2"><%- include('../components/rarity',{rarity:2}); -%></option>
+                    <option value="3"><%- include('../components/rarity',{rarity:3}); -%></option>
+                    <option value="4"><%- include('../components/rarity',{rarity:4}); -%></option>
+                    <option value="5"><%- include('../components/rarity',{rarity:5}); -%></option>
+                    <option value="6"><%- include('../components/rarity',{rarity:6}); -%></option>
+                  </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="cardtype" class="col-sm-3 col-form-label col-form-label-lg">Type*</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control form-control-lg" id="cardtype" placeholder="Artifact" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="cardcat" class="col-sm-3 col-form-label col-form-label-lg">Category*</label>
+            <div class="col-sm-9">
+                <select class="custom-select custom-select-lg" id="cardcat" required>
+                    <option selected disabled value="">Select Category...</option>
+                    <option value="2">Item</option>
+                    <option value="3">Location</option>
+                    <option value="4">Character</option>
+                  </select>
+            </div>
+        </div>
+        <div class="form-group row">
+          <label for="cardtags" class="col-sm-3 col-form-label col-form-label-lg">Tags</label>
+          <div class="col-sm-9">
+            <textarea cols="32" class="form-control form-control-lg" id="cardtags" placeholder="Enter tags as a comma seperated list."></textarea>
+          </div>
+      </div>
+            <div class="col-auto justify-content-center" style="margin-top: 10px; width: 100%; text-align: center;">
+              <button <% if (!admin) { %>disabled<% } %>  type="submit" class="btn btn-primary btn-lg">Submit</button>
+              <button type="button" class="btn btn-primary btn-lg" onclick="cardpreview()">Preview</button>
+              </div>
+      </form>
+</div>
+</div>
+<script src="/static/js/cardcreate.js"></script>
+<%- include('../components/footer'); -%>
+
