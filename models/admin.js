@@ -15,8 +15,9 @@ module.exports = {
                 for(var row in data.results){
                     var date = new Date(data.results[row].expiration);
                     if(date<now){
-                        let query = 'DELETE FROM sessions WHERE name = \''+data.results[row].name+ '\'';
-                        await client.query(query);
+                        let query = 'DELETE FROM sessions WHERE name = \'$1\'';
+                        let values = [data.results[row].name];
+                        await client.query(query,values);
                     }else if(data.results[row].name == cookie){
                         success = true;
                     }
@@ -40,11 +41,12 @@ module.exports = {
             let session_name = ""+uuidv4();
             var session_exp = new Date();
             session_exp.setDate(session_exp.getDate() + 1);
-            let query = 'INSERT INTO sessions(name,expiration) VALUES ( \''+session_name+'\',\''+session_exp.toISOString()+'\');';
+            let query = 'INSERT INTO sessions(name,expiration) VALUES ( \'$1\',\'$2\');';
+            let values = [session_name,session_exp.toISOString()];
         
             try {
               const client = await pool.connect();
-              await client.query(query);
+              await client.query(query,values);
               client.release();
             } catch (err) {
               console.error(err);
@@ -63,10 +65,12 @@ module.exports = {
         let cookie = req.cookies["session"];
         cookie = cookie.replace(/[^a-zA-Z0-9-_]+/ig,'');
         if(cookie != null){
-            let query = 'DELETE FROM sessions WHERE name = \''+cookie+ '\'';
+            let query = 'DELETE FROM sessions WHERE name = \'$1\'';
+            let values = [cookie];
+
             try {
                 const client = await pool.connect();
-                await client.query(query);
+                await client.query(query,values);
                 client.release();
             } catch (err) {
                 console.error(err);
@@ -88,8 +92,9 @@ module.exports = {
             for(var row in data.results){
                 var date = new Date(data.results[row].expiration);
                 if(date<now){
-                    let query = 'DELETE FROM sessions WHERE name = \''+data.results[row].name+ '\'';
-                    await client.query(query);
+                    let query = 'DELETE FROM sessions WHERE name = \'$1\'';
+                    let values = [data.results[row].name];
+                    await client.query(query,values);
                 }else if(data.results[row].name == cookie){
                     success = true;
                 }

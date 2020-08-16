@@ -54,7 +54,7 @@ app.get('/create/preview', async (req,res)=>{
   res.render('pages/preview',{query:req.query});
 })
 app.post('/crate/submit', async function(req, res){
-  
+  cards.post(req,res,pool);
 });
 
 //ADMIN ONLY TEST
