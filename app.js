@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
 });
 
 //DATABASE Response
-app.get(['/data','/data/*'], async (req,res)=>{
+app.get(['/db','/db/*'], async (req,res)=>{
   cards.get(req,res,pool);
   //console.log(req.params[0]);
 });
