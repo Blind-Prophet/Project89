@@ -32,7 +32,7 @@ module.exports = {
     get: async (req,res,pool) =>{
         try {
             const client = await pool.connect();
-            let query = 'SELECT * FROM cards';
+            let query = 'SELECT * FROM cards;';
 
             if(req.query.id){
                 let id = req.query.id;
@@ -52,7 +52,7 @@ module.exports = {
     },
     post: async (req,res,pool) => {
         let uuid = ""+uuidv4();
-        let query = 'INSERT INTO cards(name,description,attributes,rarity,type,tags,image,category,uuid) VALUES (\'$1\',\'$2\',\'$3\',$4,\'$5\',\'$6\',\'$7\',\'$8\',\'$9\');';
+        let query = 'INSERT INTO cards(name,description,attributes,rarity,type,tags,image,category,uuid) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9);';
         let values = [
             req.body.name,
             req.body.description,
