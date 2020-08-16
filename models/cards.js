@@ -1,28 +1,21 @@
-const crypto = require("crypto");
+const hash = require("./hash");
+
 module.exports = {
     get: async (req,res,pool) =>{
         try {
             const client = await pool.connect();
-            const result = await client.query('SELECT * FROM cards');
+            let query = 'SELECT * FROM cards';
+
+            if(req.query.id){
+                let hashed = req.query.id;
+                let id = hash.decrypt(hashed);
+                id = id.replace(/[^a-zA-Z0-9-_]+/ig,'');
+                query += 'WHERE id = '+id;
+            }
+
+            const result = await client.query(query);
             const data = { 'results': (result) ? result.rows : null};
-            res.render('pages/data',{crypto:crypto,data:data.results});
-
-
-            // for(var row in data.results){
-            //     var date = new Date(data.results[row].expiration);
-            //     if(date<now){
-            //         let query = 'DELETE FROM sessions WHERE name = \''+data.results[row].name+ '\'';
-            //         await client.query(query);
-            //     }else if(data.results[row].name == cookie){
-            //         success = true;
-            //     }
-            // }
-  
-            // if(success){
-            //     res.render('pages/'+landing_page);
-            // }else{
-            //     res.render('pages/auth',{page:landing_page});
-            // }
+            res.render('pages/data',{hash:hash,data:data.results});
             client.release();
         } catch (err) {
              console.error(err);

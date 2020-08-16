@@ -19,7 +19,7 @@
     </ul>
     <% } %>
     <div class="card-footer">
-      <a href="<%= crypto.createHmac("sha256", process.env.AUTH_PW).update(card.id).digest("hex");%>" class="card-link"><%- include('../icons/link'); -%></a>
+      <a href="<%= hash.encrypt(card.id); %>" class="card-link"><%- include('../icons/link'); -%></a>
       <p class="card-text float-right rare-text-<%= card.rarity %>" style="font-weight: bold;"><%- include('rarity',{rarity:card.rarity}); -%> <%= card.type %></p>
     </div>
   </div>
