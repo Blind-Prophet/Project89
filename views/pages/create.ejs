@@ -66,7 +66,7 @@
           </div>
       </div>
       <% if (card && card.uuid) { %>
-        <input type="hidden" id="uuid" name="uuid" value="<%= uuid %>">
+        <input type="hidden" id="uuid" name="uuid" value="<%= card.uuid %>">
       <% } %>
             <div class="col-auto justify-content-center" style="margin-top: 10px; width: 100%; text-align: center;">
               <button <% if (!admin) { %>disabled<% } %>  type="submit" class="btn btn-primary btn-lg">Submit</button>
