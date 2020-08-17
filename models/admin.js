@@ -35,7 +35,7 @@ module.exports = {
     },
     load: async (req,res,pool,landing_page) =>{
         let cookie = req.cookies["session"];
-        if(checkAuthentication(cookie, pool))
+        if(await checkAuthentication(cookie, pool))
         {
             res.render('pages/'+landing_page,{query:req.query});
         }
