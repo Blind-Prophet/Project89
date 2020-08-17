@@ -13,13 +13,13 @@
         <div class="form-group row">
           <label for="cardimg" class="col-sm-3 col-form-label col-form-label-lg">Image URL</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control form-control-lg" id="cardimg" placeholder="www.example.com/image.png" name="image">
+            <input type="text" class="form-control form-control-lg" id="cardimg" placeholder="www.example.com/image.png" name="image" value="<% if(card&&card.image){%><%=card.image%><%}%>">
           </div>
       </div>
         <div class="form-group row">
             <label for="carddesc" class="col-sm-3 col-form-label col-form-label-lg">Description</label>
             <div class="col-sm-9">
-              <textarea class="form-control form-control-lg" id="carddesc" placeholder="Use this to provide context or a short description." maxlength="255" name="description"></textarea>
+              <textarea class="form-control form-control-lg" id="carddesc" placeholder="Use this to provide context or a short description." maxlength="255" name="description" value="<% if(card&&card.description){%><%=card.description%><%}%>"></textarea>
             </div>
         </div>
         <div class="form-group row">
@@ -43,7 +43,7 @@
         <div class="form-group row">
             <label for="cardtype" class="col-sm-3 col-form-label col-form-label-lg">Type*</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control form-control-lg" id="cardtype" placeholder="More specific category (Max 10 characters)" required name="type" maxlength="10" >
+              <input type="text" class="form-control form-control-lg" id="cardtype" placeholder="More specific category (Max 10 characters)" required name="type" maxlength="10" value="<% if(card&&card.type){%><%=card.type%><%}%>">
             </div>
         </div>
         <div class="form-group row">

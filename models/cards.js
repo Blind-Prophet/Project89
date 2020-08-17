@@ -103,7 +103,10 @@ module.exports = {
                 const data = { 'results': (result) ? result.rows : null};
                 if(data.results && data.results.length > 0)
                 {
-                    res.render('pages/create',{card:data.results[0],admin:auth});
+                    let card = data.results[0];
+                    
+
+                    res.render('pages/create',{card:card,admin:auth});
                 }
                 else
                 {
