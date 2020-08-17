@@ -104,6 +104,21 @@ module.exports = {
                 if(data.results && data.results.length > 0)
                 {
                     let card = data.results[0];
+                    let attr = "";
+                    if(card.attributes.length > 0){
+                        attr = card.attributes[0];
+                        for(let i=1;i<card.attributes.length;i++){
+                            attr += '\n'+card.attributes[i];
+                        }
+                    }
+                    card.attributes = attr;
+                    let tags = "";
+                    if(card.tags.length > 0){
+                        tags = card.tags[0];
+                        for(let i=1;i<card.tags.length;i++){
+                            tags += ','+card.tags[i];
+                        }
+                    }
                     
 
                     res.render('pages/create',{card:card,admin:auth});

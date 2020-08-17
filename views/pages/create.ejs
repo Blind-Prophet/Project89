@@ -19,24 +19,25 @@
         <div class="form-group row">
             <label for="carddesc" class="col-sm-3 col-form-label col-form-label-lg">Description</label>
             <div class="col-sm-9">
-              <textarea class="form-control form-control-lg" id="carddesc" placeholder="Use this to provide context or a short description." maxlength="255" name="description" value="<% if(card&&card.description){%><%=card.description%><%}%>"></textarea>
+              <textarea class="form-control form-control-lg" id="carddesc" placeholder="Use this to provide context or a short description." maxlength="255" name="description"><% if(card&&card.description){%><%=card.description%><%}%></textarea>
             </div>
         </div>
         <div class="form-group row">
           <label for="cardattr" class="col-sm-3 col-form-label col-form-label-lg">Attributes</label>
           <div class="col-sm-9">
-            <textarea cols="32" class="form-control form-control-lg" id="cardattr" placeholder="One attribute per line (32 character each)" name="attributes"></textarea>
+            <textarea cols="32" class="form-control form-control-lg" id="cardattr" placeholder="One attribute per line (32 character each)" name="attributes"><% if(card&&card.attributes){%><%=card.attributes%><%}%></textarea>
           </div>
       </div>
+      
         <div class="form-group row">
           <label for="cardcat" class="col-sm-3 col-form-label col-form-label-lg">Category*</label>
           <div class="col-sm-9">
               <select class="custom-select custom-select-lg" id="cardcat" required name="category">
-                  <option selected disabled value="">Select Category...</option>
-                  <option value="Item">Item</option>
-                  <option value="Location">Location</option>
-                  <option value="Character">Character</option>
-                  <option value="Faction">Faction</option>
+                  <option <% if(card==null || card.description == null){%>selected<%}%> disabled value="">Select Category...</option>
+                  <option <% if(card&&card.description == "Item"){%>selected<%}%> value="Item">Item</option>
+                  <option <% if(card&&card.description == "Location"){%>selected<%}%> value="Location">Location</option>
+                  <option <% if(card&&card.description == "Character"){%>selected<%}%> value="Character">Character</option>
+                  <option <% if(card&&card.description == "Faction"){%>selected<%}%> value="Faction">Faction</option>
                 </select>
           </div>
       </div>
@@ -50,19 +51,19 @@
           <label for="cardrarity" class="col-sm-3 col-form-label col-form-label-lg">Rarity</label>
           <div class="col-sm-9">
               <select class="custom-select custom-select-lg" id="cardrarity" name="rarity">
-                  <option selected value="1"><%- include('../components/rarity',{rarity:1}); -%></option>
-                  <option value="2"><%- include('../components/rarity',{rarity:2}); -%></option>
-                  <option value="3"><%- include('../components/rarity',{rarity:3}); -%></option>
-                  <option value="4"><%- include('../components/rarity',{rarity:4}); -%></option>
-                  <option value="5"><%- include('../components/rarity',{rarity:5}); -%></option>
-                  <option value="6"><%- include('../components/rarity',{rarity:6}); -%></option>
+                  <option <% if(card==null || (card&&card.rarity == "1")){%>selected<%}%> value="1"><%- include('../components/rarity',{rarity:1}); -%></option>
+                  <option <% if(card&&card.rarity == "2"){%>selected<%}%> value="2"><%- include('../components/rarity',{rarity:2}); -%></option>
+                  <option <% if(card&&card.rarity == "3"){%>selected<%}%> value="3"><%- include('../components/rarity',{rarity:3}); -%></option>
+                  <option <% if(card&&card.rarity == "4"){%>selected<%}%> value="4"><%- include('../components/rarity',{rarity:4}); -%></option>
+                  <option <% if(card&&card.rarity == "5"){%>selected<%}%> value="5"><%- include('../components/rarity',{rarity:5}); -%></option>
+                  <option <% if(card&&card.rarity == "6"){%>selected<%}%> value="6"><%- include('../components/rarity',{rarity:6}); -%></option>
                 </select>
           </div>
       </div>
         <div class="form-group row">
           <label for="cardtags" class="col-sm-3 col-form-label col-form-label-lg">Tags</label>
           <div class="col-sm-9">
-            <textarea cols="32" class="form-control form-control-lg" id="cardtags" placeholder="Enter tags as a comma seperated list (each tag no more than 32 characters)." name="tags"></textarea>
+            <textarea cols="32" class="form-control form-control-lg" id="cardtags" placeholder="Enter tags as a comma seperated list (each tag no more than 32 characters)." name="tags"><% if(card&&card.tags){%><%=card.tags%><%}%></textarea>
           </div>
       </div>
       <% if (card && card.uuid) { %>
