@@ -44,7 +44,7 @@
         <div class="form-group row">
             <label for="cardtype" class="col-sm-3 col-form-label col-form-label-lg">Type*</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control form-control-lg" id="cardtype" placeholder="Artifact" required name="type">
+              <input type="text" class="form-control form-control-lg" id="cardtype" placeholder="More specific category (Max 10 characters)" required name="type" maxlength="10" >
             </div>
         </div>
         <div class="form-group row">
@@ -62,7 +62,7 @@
         <div class="form-group row">
           <label for="cardtags" class="col-sm-3 col-form-label col-form-label-lg">Tags</label>
           <div class="col-sm-9">
-            <textarea cols="32" class="form-control form-control-lg" id="cardtags" placeholder="Enter tags as a comma seperated list." name="tags"></textarea>
+            <textarea cols="32" class="form-control form-control-lg" id="cardtags" placeholder="Enter tags as a comma seperated list (each tag no more than 32 characters)." name="tags"></textarea>
           </div>
       </div>
             <div class="col-auto justify-content-center" style="margin-top: 10px; width: 100%; text-align: center;">
