@@ -7,7 +7,7 @@
         <div class="form-group row">
             <label for="cardname" class="col-sm-3 col-form-label col-form-label-lg">Name*</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control form-control-lg" id="cardname" placeholder="Name" maxlength="32" required name="name" value="<% if (card && card.name) { card.name } %>">
+              <input type="text" class="form-control form-control-lg" id="cardname" placeholder="Name" maxlength="32" required name="name" value="<%= if (card && card.name) { card.name } %>">
             </div>
         </div>
         <div class="form-group row">
