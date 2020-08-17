@@ -29,18 +29,17 @@
           </div>
       </div>
         <div class="form-group row">
-            <label for="cardrarity" class="col-sm-3 col-form-label col-form-label-lg">Rarity</label>
-            <div class="col-sm-9">
-                <select class="custom-select custom-select-lg" id="cardrarity" name="rarity">
-                    <option selected value="1"><%- include('../components/rarity',{rarity:1}); -%></option>
-                    <option value="2"><%- include('../components/rarity',{rarity:2}); -%></option>
-                    <option value="3"><%- include('../components/rarity',{rarity:3}); -%></option>
-                    <option value="4"><%- include('../components/rarity',{rarity:4}); -%></option>
-                    <option value="5"><%- include('../components/rarity',{rarity:5}); -%></option>
-                    <option value="6"><%- include('../components/rarity',{rarity:6}); -%></option>
-                  </select>
-            </div>
-        </div>
+          <label for="cardcat" class="col-sm-3 col-form-label col-form-label-lg">Category*</label>
+          <div class="col-sm-9">
+              <select class="custom-select custom-select-lg" id="cardcat" required name="category">
+                  <option selected disabled value="">Select Category...</option>
+                  <option value="Item">Item</option>
+                  <option value="Location">Location</option>
+                  <option value="Character">Character</option>
+                  <option value="Faction">Faction</option>
+                </select>
+          </div>
+      </div>
         <div class="form-group row">
             <label for="cardtype" class="col-sm-3 col-form-label col-form-label-lg">Type*</label>
             <div class="col-sm-9">
@@ -48,17 +47,18 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="cardcat" class="col-sm-3 col-form-label col-form-label-lg">Category*</label>
-            <div class="col-sm-9">
-                <select class="custom-select custom-select-lg" id="cardcat" required name="category">
-                    <option selected disabled value="">Select Category...</option>
-                    <option value="Item">Item</option>
-                    <option value="Location">Location</option>
-                    <option value="Character">Character</option>
-                    <option value="Faction">Faction</option>
-                  </select>
-            </div>
-        </div>
+          <label for="cardrarity" class="col-sm-3 col-form-label col-form-label-lg">Rarity</label>
+          <div class="col-sm-9">
+              <select class="custom-select custom-select-lg" id="cardrarity" name="rarity">
+                  <option selected value="1"><%- include('../components/rarity',{rarity:1}); -%></option>
+                  <option value="2"><%- include('../components/rarity',{rarity:2}); -%></option>
+                  <option value="3"><%- include('../components/rarity',{rarity:3}); -%></option>
+                  <option value="4"><%- include('../components/rarity',{rarity:4}); -%></option>
+                  <option value="5"><%- include('../components/rarity',{rarity:5}); -%></option>
+                  <option value="6"><%- include('../components/rarity',{rarity:6}); -%></option>
+                </select>
+          </div>
+      </div>
         <div class="form-group row">
           <label for="cardtags" class="col-sm-3 col-form-label col-form-label-lg">Tags</label>
           <div class="col-sm-9">
