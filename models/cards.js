@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const admin = require('admin');
+const admin = require('./admin');
 
 function filterAttributes(attrString){
     //If text is empty return empty
@@ -93,7 +93,7 @@ module.exports = {
        } 
     },
     create: async (req,res,pool) => {
-        let auth = admin.check(req,pool);
+        let auth = await admin.check(req,pool);
         if(req.query.id){
             try {
                 const client = await pool.connect();

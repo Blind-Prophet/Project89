@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 
-function checkAuthentication(cookie, pool){
+async function checkAuthentication(cookie, pool){
     if(cookie==null) return false;
     else{
         try {
@@ -31,7 +31,7 @@ function checkAuthentication(cookie, pool){
 module.exports = {
     check: async (req,pool) =>{
         let cookie = req.cookies["session"];
-        return checkAuthentication(cookie, pool);
+        return await checkAuthentication(cookie, pool);
     },
     load: async (req,res,pool,landing_page) =>{
         let cookie = req.cookies["session"];
@@ -92,7 +92,7 @@ module.exports = {
 
     enabled: async(req,res,pool,landing_page) => { 
         let cookie = req.cookies["session"];
-        if(checkAuthentication(cookie, pool))
+        if(await checkAuthentication(cookie, pool))
         {
             res.render('pages/'+landing_page,{admin:true,query:req.query});
         }
