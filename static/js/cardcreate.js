@@ -6,7 +6,8 @@ function cardpreview(){
     let cardrarity = document.getElementById("cardrarity").value;
     let cardtype = document.getElementById("cardtype").value;
     let cardattr = document.getElementById("cardattr").value;
-    cardattr = cardattr.split("\n");
+    if(cardattr != "") cardattr = cardattr.split("\n");
+    else cardattr = [];
     
     //Step 2: Generate URL
     let preview = "/create/preview/?";
