@@ -53,7 +53,7 @@ module.exports = {
             }
         
         
-            res.cookie('session',session_name, { maxAge: 900000, httpOnly: true, sameSite: "strict", secure: true });
+            res.cookie('session',session_name, { maxAge: 43200000, httpOnly: true, sameSite: "strict", secure: true });
             let page = 'pages/'+req.body.page;
             res.render(page,{query:req.query});
           }else{
