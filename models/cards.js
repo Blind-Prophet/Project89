@@ -73,10 +73,10 @@ module.exports = {
             const client = await pool.connect();
             await client.query(query,values);
 
-            let query = 'SELECT * FROM cards WHERE uuid = $1';
-            let values = [uuid];
+            let query2 = 'SELECT * FROM cards WHERE uuid = $1';
+            let values2 = [uuid];
 
-            const result = await client.query(query,values);
+            const result = await client.query(query2,values2);
             const data = { 'results': (result) ? result.rows : null};
             res.render('pages/data',{data:data.results});
 
