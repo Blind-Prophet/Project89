@@ -1,9 +1,9 @@
-<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3" style="margin: 10px 0px; max-width:350px;">
+<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 card-identifier" style="margin: 10px 0px; max-width:350px;">
   <div class="card text-white bg-dark rare-card-<%= card.rarity %>">
     <h5 class="card-header"><%= card.name %></h5>
     <% if (card.image) { %>
       <div>
-        <img style="object-fit: cover;" src="<%= card.image %>" class="card-img-top" alt="...">
+        <img style="object-fit: cover;" src="<%= card.image %>" class="card-img-top">
       </div>
     <% } %>
     <% if (card.description) { %>
@@ -11,7 +11,7 @@
       <p class="card-text"><%= card.description %></p>
     </div>
     <% } %>
-    <% if (card.attributes) { %>
+    <% if (card.attributes && card.attributes.length > 0) { %>
     <ul class="list-group list-group-flush">
       <% for(var i=0; i < card.attributes.length; i++) { %>
         <li class="list-group-item text-white bg-dark"><%= card.attributes[i] %></li>
@@ -19,7 +19,7 @@
     </ul>
     <% } %>
     <div class="card-footer">
-      <a href="?id=<%=card.uuid%>" class="card-link"><%- include('../icons/link'); -%></a>
+      <a href="/db/?id=<%=card.uuid%>" class="card-link"><%- include('../icons/link'); -%></a>
       <p class="card-text float-right rare-text-<%= card.rarity %>" style="font-weight: bold;"><%- include('rarity',{rarity:card.rarity}); -%> <%= card.type %></p>
     </div>
   </div>
