@@ -107,17 +107,17 @@ module.exports = {
                 }
                 else
                 {
-                    res.render('pages/create',{admin:auth});
+                    res.render('pages/create',{card:null,admin:auth});
                 }
                 client.release();
             }catch (err){
                 console.error(err);
-                res.render('pages/create',{admin:auth});
+                res.render('pages/create',{card:null,admin:auth});
             }
         }
         else
         {
-            res.render('pages/create',{admin:auth});
+            res.render('pages/create',{card:null,admin:auth});
         }
     }
 };
