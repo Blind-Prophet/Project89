@@ -53,7 +53,7 @@ app.get('/create',async (req,res)=>{
 app.get('/create/preview', async (req,res)=>{
   res.render('pages/preview',{query:req.query});
 })
-app.post('/crate/submit', async function(req, res){
+app.post('/create/submit', async function(req, res){
   cards.post(req,res,pool);
 });
 

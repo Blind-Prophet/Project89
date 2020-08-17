@@ -32,15 +32,19 @@ module.exports = {
     get: async (req,res,pool) =>{
         try {
             const client = await pool.connect();
-            let query = 'SELECT * FROM cards;';
+            let query = 'SELECT * FROM cards';
+            let values = [];
 
             if(req.query.id){
                 let id = req.query.id;
                 id = id.replace(/[^a-zA-Z0-9-_]+/ig,'');
-                query += ' WHERE uuid = \''+id+'\'';
+                query += ' WHERE uuid = $1;';
+                values = [id];
+            }else{
+                query += ';';
             }
 
-            const result = await client.query(query);
+            const result = await client.query(query,values);
             const data = { 'results': (result) ? result.rows : null};
             res.render('pages/data',{data:data.results});
             client.release();
@@ -69,6 +73,7 @@ module.exports = {
             const client = await pool.connect();
             await client.query(query,values);
             client.release();
+            this.get(req,res,pool);
         } catch (err) {
             console.error(err);
             res.send("Error " + err);
