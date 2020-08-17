@@ -7,7 +7,7 @@
         <div class="form-group row">
             <label for="cardname" class="col-sm-3 col-form-label col-form-label-lg">Name*</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control form-control-lg" id="cardname" placeholder="Name" maxlength="32" required name="name" value="<% if (card.name) { card.name } %>">
+              <input type="text" class="form-control form-control-lg" id="cardname" placeholder="Name" maxlength="32" required name="name" value="<% if (card && card.name) { card.name } %>">
             </div>
         </div>
         <div class="form-group row">
@@ -65,7 +65,7 @@
             <textarea cols="32" class="form-control form-control-lg" id="cardtags" placeholder="Enter tags as a comma seperated list (each tag no more than 32 characters)." name="tags"></textarea>
           </div>
       </div>
-      <% if (card.uuid) { %>
+      <% if (card && card.uuid) { %>
         <input type="hidden" id="uuid" name="uuid" value="<%= uuid %>">
       <% } %>
             <div class="col-auto justify-content-center" style="margin-top: 10px; width: 100%; text-align: center;">
