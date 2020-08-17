@@ -1,6 +1,9 @@
 const { v4: uuidv4 } = require('uuid');
 
 function filterAttributes(attrString){
+    //If text is empty return empty
+    if(attrString == "") return [];
+
     //Split text by newline
     let attrArray = attrString.split("\n");
 
@@ -15,6 +18,9 @@ function filterAttributes(attrString){
 }
 
 function filterTags(tagString){
+    //If text is empty return empty
+    if(tagString == "") return [];
+
     //Split text by comma
     var tagArray = tagString.split(',');
 
