@@ -17,9 +17,12 @@ function cardpreview(){
     preview+="&r="+cardrarity;
     preview+="&t="+cardtype;
     console.log(cardattr);
-    for(a of cardattr){
-        preview+="&a="+a;
+    if(cardattr != []){
+        for(a of cardattr){
+            preview+="&a="+a;
+        }
     }
+    
 
     //Step 3: Open preview in new tab
     window.open(preview);
