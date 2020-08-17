@@ -6,8 +6,8 @@ function cardpreview(){
     let cardrarity = document.getElementById("cardrarity").value;
     let cardtype = document.getElementById("cardtype").value;
     let cardattr = document.getElementById("cardattr").value;
-    if(cardattr != "") cardattr = cardattr.split("\n");
-    else cardattr = [];
+    cardattr = cardattr.split("\n");
+
     
     //Step 2: Generate URL
     let preview = "/create/preview/?";
@@ -17,12 +17,9 @@ function cardpreview(){
     preview+="&r="+cardrarity;
     preview+="&t="+cardtype;
     console.log(cardattr);
-    if(cardattr != []){
-        for(a of cardattr){
-            preview+="&a="+a;
-        }
+    for(a of cardattr){
+        preview+="&a="+a;
     }
-    
 
     //Step 3: Open preview in new tab
     window.open(preview);
