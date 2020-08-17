@@ -48,11 +48,11 @@ app.get(['/db','/db/*'], async (req,res)=>{
 });
 
 app.get('/create',async (req,res)=>{
-  admin.enabled(req,res,pool,'create');
+  cards.create(req,res,pool);
 });
 app.get('/create/preview', async (req,res)=>{
   res.render('pages/preview',{query:req.query});
-})
+});
 app.post('/create/submit', async function(req, res){
   cards.post(req,res,pool);
 });

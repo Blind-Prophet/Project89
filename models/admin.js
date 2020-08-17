@@ -1,38 +1,47 @@
 const { v4: uuidv4 } = require('uuid');
 
+function checkAuthentication(cookie, pool){
+    if(cookie==null) return false;
+    else{
+        try {
+            const client = await pool.connect();
+            const result = await client.query('SELECT * FROM sessions;');
+            const data = { 'results': (result) ? result.rows : null};
+            var success = false;
+            var now = new Date();
+            for(var row in data.results){
+                var date = new Date(data.results[row].expiration);
+                if(date<now){
+                    let query = 'DELETE FROM sessions WHERE name = $1;';
+                    let values = [data.results[row].name];
+                    await client.query(query,values);
+                }else if(data.results[row].name == cookie){
+                    success = true;
+                }
+            }
+            client.release();
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+        return success;
+    }
+}
+
 module.exports = {
+    check: async (req,pool) =>{
+        let cookie = req.cookies["session"];
+        return checkAuthentication(cookie, pool);
+    },
     load: async (req,res,pool,landing_page) =>{
         let cookie = req.cookies["session"];
-        if(cookie == null){
-            res.render('pages/auth',{page:landing_page});
-         }else{
-            try {
-                const client = await pool.connect();
-                const result = await client.query('SELECT * FROM sessions;');
-                const data = { 'results': (result) ? result.rows : null};
-                var success = false;
-                var now = new Date();
-                for(var row in data.results){
-                    var date = new Date(data.results[row].expiration);
-                    if(date<now){
-                        let query = 'DELETE FROM sessions WHERE name = $1;';
-                        let values = [data.results[row].name];
-                        await client.query(query,values);
-                    }else if(data.results[row].name == cookie){
-                        success = true;
-                    }
-                }
-      
-                if(success){
-                    res.render('pages/'+landing_page);
-                }else{
-                    res.render('pages/auth',{page:landing_page});
-                }
-                client.release();
-            } catch (err) {
-                console.error(err);
-                res.send("Error " + err);
-            }
+        if(checkAuthentication(cookie, pool))
+        {
+            res.render('pages/'+landing_page,{query:req.query});
+        }
+        else
+        {
+            res.render('pages/auth',{page:landing_page,query:req.query});
         }
     },
 
@@ -83,31 +92,13 @@ module.exports = {
 
     enabled: async(req,res,pool,landing_page) => { 
         let cookie = req.cookies["session"];
-        try {
-            const client = await pool.connect();
-            const result = await client.query('SELECT * FROM sessions;');
-            const data = { 'results': (result) ? result.rows : null};
-            var success = false;
-            var now = new Date();
-            for(var row in data.results){
-                var date = new Date(data.results[row].expiration);
-                if(date<now){
-                    let query = 'DELETE FROM sessions WHERE name = $1;';
-                    let values = [data.results[row].name];
-                    await client.query(query,values);
-                }else if(data.results[row].name == cookie){
-                    success = true;
-                }
-            }
-            if(success){
-                res.render('pages/'+landing_page,{admin:true});
-            }else{
-                res.render('pages/'+landing_page,{admin:false});
-            }
-                client.release();
-        } catch (err) {
-            console.error(err);
-            res.render('pages/'+landing_page,{admin:false});
+        if(checkAuthentication(cookie, pool))
+        {
+            res.render('pages/'+landing_page,{admin:true,query:req.query});
+        }
+        else
+        {
+            res.render('pages/'+landing_page,{admin:false,query:req.query});
         }
     }
   };

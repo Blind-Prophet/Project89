@@ -1,4 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
+const admin = require('admin');
 
 function filterAttributes(attrString){
     //If text is empty return empty
@@ -13,7 +14,6 @@ function filterAttributes(attrString){
             attrArray[i] = attrArray[i].substring(0, 31);
         }
     }
-
     return attrArray;
 }
 
@@ -52,7 +52,7 @@ module.exports = {
 
             const result = await client.query(query,values);
             const data = { 'results': (result) ? result.rows : null};
-            res.render('pages/data',{data:data.results});
+            res.render('pages/data',{data:data.results,query:req.query});
             client.release();
         } catch (err) {
              console.error(err);
@@ -84,12 +84,40 @@ module.exports = {
 
             const result = await client.query(query2,values2);
             const data = { 'results': (result) ? result.rows : null};
-            res.render('pages/data',{data:data.results});
+            res.render('pages/data',{data:data.results,query:req.query});
 
             client.release();
         } catch (err) {
             console.error(err);
             res.send("Error " + err);
        } 
+    },
+    create: async (req,res,pool) => {
+        let auth = admin.check(req,pool);
+        if(req.query.id){
+            try {
+                const client = await pool.connect();
+                let query = 'SELECT * FROM cards WHERE uuid = $1;';
+                let values = [req.query.id];
+                const result = await client.query(query,values);
+                const data = { 'results': (result) ? result.rows : null};
+                if(data.results && data.results.length > 0)
+                {
+                    res.render('pages/create',{card:data.results[0],admin:auth});
+                }
+                else
+                {
+                    res.render('pages/create',{admin:auth});
+                }
+                client.release();
+            }catch (err){
+                console.error(err);
+                res.render('pages/create',{admin:auth});
+            }
+        }
+        else
+        {
+            res.render('pages/create',{admin:auth});
+        }
     }
 };
