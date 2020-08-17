@@ -40,10 +40,14 @@ module.exports = {
             const client = await pool.connect();
             let query = 'SELECT * FROM cards';
             let values = [];
+            let let_modify = null;
 
             if(req.query.id){
                 let id = req.query.id;
                 id = id.replace(/[^a-zA-Z0-9-_]+/ig,'');
+                if(await admin.check(req,pool)){
+                    let_modify = id;
+                }
                 query += ' WHERE uuid = $1;';
                 values = [id];
             }else{
@@ -52,7 +56,7 @@ module.exports = {
 
             const result = await client.query(query,values);
             const data = { 'results': (result) ? result.rows : null};
-            res.render('pages/data',{data:data.results,query:req.query});
+            res.render('pages/data',{data:data.results,query:req.query,modify:let_modify}); 
             client.release();
         } catch (err) {
              console.error(err);
@@ -137,5 +141,8 @@ module.exports = {
         {
             res.render('pages/create',{card:null,admin:auth});
         }
+    },
+    modify: async (req,res,pool) => {
+    
     }
 };
