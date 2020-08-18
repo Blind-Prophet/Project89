@@ -60,6 +60,9 @@ app.post('/create/submit', async function(req, res){
 app.post('/create/modify', async function(req, res){
   cards.modify(req,res,pool);
 })
+app.post('/create/delete', async function(req, res){
+  cards.delete(req,res,pool);
+})
 
 //ADMIN ONLY TEST
 app.get('/admin', async (req,res)=>{

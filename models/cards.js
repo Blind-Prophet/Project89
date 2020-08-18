@@ -188,5 +188,18 @@ module.exports = {
             console.error(err);
             res.send("Error " + err);
         }
+    },
+    delete:  async (req,res,pool) => {
+        let query = 'DELETE FROM cards WHERE uuid = $1;';
+        let values = [req.body.id];
+        try{
+            const client = await pool.connect();
+            await client.query(query,values);
+            res.render('pages/home',{query:req.query});
+            client.release();
+        }catch (err){
+            console.error(err);
+            res.send("Error " + err);
+        }
     }
 };
