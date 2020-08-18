@@ -34,6 +34,22 @@ function filterTags(tagString){
     return tagArray;
 }
 
+function loadCards(req,pool,uuid){
+    try {
+        let query = 'SELECT * FROM cards WHERE uuid = $1';
+        let values = [req.body.uuid];
+
+        const result = await client.query(query,values);
+        const data = { 'results': (result) ? result.rows : null};
+        res.render('pages/data',{data:data.results,query:req.query});
+
+        client.release();
+    } catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+   } 
+}
+
 module.exports = {
     get: async (req,res,pool) =>{
         try {
@@ -88,7 +104,7 @@ module.exports = {
 
             const result = await client.query(query2,values2);
             const data = { 'results': (result) ? result.rows : null};
-            res.render('pages/data',{data:data.results,query:req.query});
+            res.render('pages/data',{data:data.results,query:req.query,modify:uuid});
 
             client.release();
         } catch (err) {
@@ -143,6 +159,34 @@ module.exports = {
         }
     },
     modify: async (req,res,pool) => {
-    
+        let query = 'UPDATE cards SET (name,description,attributes,rarity,type,tags,image,category) = ($1,$2,$3,$4,$5,$6,$7,$8) WHERE uuid = $9;'
+        let values = [
+            req.body.name,
+            req.body.description,
+            filterAttributes(req.body.attributes),
+            req.body.rarity,
+            req.body.type,
+            filterTags(req.body.tags),
+            req.body.image,
+            req.body.category,
+            req.body.uuid
+        ];
+
+        try{
+            const client = await pool.connect();
+            await client.query(query,values);
+
+            let query2 = 'SELECT * FROM cards WHERE uuid = $1';
+            let values2 = [req.body.uuid];
+        
+            const result = await client.query(query2,values2);
+            const data = { 'results': (result) ? result.rows : null};
+            res.render('pages/data',{data:data.results,query:req.query,modify:req.body.uuid});
+        
+            client.release();
+        }catch (err){
+            console.error(err);
+            res.send("Error " + err);
+        }
     }
 };

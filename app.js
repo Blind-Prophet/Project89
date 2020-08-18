@@ -47,6 +47,7 @@ app.get(['/db','/db/*'], async (req,res)=>{
   //console.log(req.params[0]);
 });
 
+//Card Creation
 app.get('/create',async (req,res)=>{
   cards.create(req,res,pool);
 });
@@ -56,6 +57,9 @@ app.get('/create/preview', async (req,res)=>{
 app.post('/create/submit', async function(req, res){
   cards.post(req,res,pool);
 });
+app.post('/create/modify', async function(req, res){
+  cards.modify(req,res,pool);
+})
 
 //ADMIN ONLY TEST
 app.get('/admin', async (req,res)=>{
