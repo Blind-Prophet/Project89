@@ -96,6 +96,8 @@ module.exports = {
         ];
 
         try {
+            if(await admin.check(req,pool) == false) throw new Error("ERROR 401 Unauthorized");
+            
             const client = await pool.connect();
             await client.query(query,values);
 
@@ -173,6 +175,8 @@ module.exports = {
         ];
 
         try{
+            if(await admin.check(req,pool) == false) throw new Error("ERROR 401 Unauthorized");
+
             const client = await pool.connect();
             await client.query(query,values);
 
@@ -193,6 +197,8 @@ module.exports = {
         let query = 'DELETE FROM cards WHERE uuid = $1;';
         let values = [req.body.id];
         try{
+            if(await admin.check(req,pool) == false) throw new Error("ERROR 401 Unauthorized");
+
             const client = await pool.connect();
             await client.query(query,values);
             res.render('pages/home',{query:req.query});
