@@ -34,21 +34,21 @@ function filterTags(tagString){
     return tagArray;
 }
 
-function loadCards(req,pool,uuid){
-    try {
-        let query = 'SELECT * FROM cards WHERE uuid = $1';
-        let values = [req.body.uuid];
+// function loadCards(req,pool,uuid){
+//     try {
+//         let query = 'SELECT * FROM cards WHERE uuid = $1';
+//         let values = [req.body.uuid];
 
-        const result = await client.query(query,values);
-        const data = { 'results': (result) ? result.rows : null};
-        res.render('pages/data',{data:data.results,query:req.query});
+//         const result = await client.query(query,values);
+//         const data = { 'results': (result) ? result.rows : null};
+//         res.render('pages/data',{data:data.results,query:req.query});
 
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-   } 
-}
+//         client.release();
+//     } catch (err) {
+//         console.error(err);
+//         res.send("Error " + err);
+//    } 
+// }
 
 module.exports = {
     get: async (req,res,pool) =>{
